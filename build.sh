@@ -47,7 +47,7 @@ sed -i "s/\/bin\/sh/\/data\/data\/com.termux\/files\/usr\/bin\/sh/" include/inst
 sed -i "s/TMPDIR=\/tmp/TMPDIR=tmp/g" config.guess
 mkdir tmp
 
-./configure --prefix=/data/data/com.termux/files/usr/ CC=clang
+./configure --prefix=/data/data/com.termux/files/usr/local/ CC=clang
 make
 make install install-lib install-dev
 cd ..

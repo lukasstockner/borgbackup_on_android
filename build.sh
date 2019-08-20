@@ -8,10 +8,16 @@ pip install virtualenv
 virtualenv --python=python3 borg-env
 source borg-env/bin/activate
 
-git clone https://github.com/borgbackup/borg.git
-cd borg
-git branch 1.1-maint remotes/origin/1.1-maint
-git checkout 1.1-maint
+if [ -d borg ]; then
+	cd borg
+	git checkout 1.1-maint
+	git pull
+else
+	git clone https://github.com/borgbackup/borg.git
+	cd borg
+	git branch 1.1-maint remotes/origin/1.1-maint
+	git checkout 1.1-maint
+fi
 
 pip install -r requirements.d/development.txt
 

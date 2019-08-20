@@ -1,7 +1,7 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -eux
 
-apt -y install make clang openssl perl tsu wget git python python gnupg dirmngr curl autoconf automake sed gettext gzip pkg-config libcrypt
+apt -y install make clang openssl perl tsu wget git python python gnupg dirmngr curl autoconf automake sed gettext gzip pkg-config libcrypt lz4 libattr
 
 
 pip install virtualenv
@@ -30,38 +30,6 @@ then
 else
 	echo "no need to patch borg"
 fi
-
-#download and build lz4
-wget https://github.com/lz4/lz4/archive/v1.7.5.tar.gz -O lz4.tar.gz
-tar -xf lz4.tar.gz
-cd lz4-1.7.5
-make
-make install
-cd ..
-
-#download and build libattr
-wget https://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz
-wget https://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz.sig
-gpg2 --recv-keys 154343260542DF34
-gpg2 --verify attr-2.4.47.src.tar.gz.sig
-tar -xf attr-2.4.47.src.tar.gz
-cd attr-2.4.47
-#fixing paths to sh
-sed -i "s/\/bin\/sh/\/data\/data\/com.termux\/files\/usr\/bin\/sh/" configure
-sed -i "s/\/bin\/sh/\/data\/data\/com.termux\/files\/usr\/bin\/sh/" install-sh
-sed -i "s/\/bin\/sh/\/data\/data\/com.termux\/files\/usr\/bin\/sh/" include/install-sh
-#fix for non-existent /tmp directory in set_cc_for_build of config.guess for 32-bit arm
-sed -i "s/TMPDIR=\/tmp/TMPDIR=tmp/g" config.guess
-mkdir tmp
-
-./configure CC=clang --prefix=/data/data/com.termux/files/usr/
-
-#fix for ./include/attr/xattr.h:37:58: error: expected function body after function declarator
-#                      const void *__value, size_t __size, int __flags) __THROW;
-sed -i "s/__THROW//g" include/xattr.h
-make
-make install install-lib install-dev
-cd ..
 
 #download and build libacl
 wget https://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz

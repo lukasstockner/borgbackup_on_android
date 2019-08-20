@@ -32,9 +32,10 @@ else
 fi
 
 #download and build libacl
-wget https://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz
-wget https://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz.sig
+wget -N https://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz -O acl-2.2.52.src.tar.gz
+wget -N https://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz.sig -O acl-2.2.52.src.tar.gz.sig
 gpg2 --recv-key 0542DF34
+gpg2 --verify acl-2.2.52.src.tar.gz.sig
 tar -xf acl-2.2.52.src.tar.gz
 cd acl-2.2.52
 #fixing paths to sh

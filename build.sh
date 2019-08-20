@@ -1,5 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
-set -x
+set -eux
+
 apt -y install make clang openssl perl tsu wget git python python gnupg dirmngr curl autoconf automake sed gettext gzip pkg-config libcrypt
 
 

@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/bash
 set -x
-apt -y install make clang openssl-dev perl tsu wget git python python-dev gnupg dirmngr curl autoconf automake sed gettext gzip pkg-config libcrypt-dev
+apt -y install make clang openssl perl tsu wget git python python gnupg dirmngr curl autoconf automake sed gettext gzip pkg-config libcrypt
 
 
 pip install virtualenv

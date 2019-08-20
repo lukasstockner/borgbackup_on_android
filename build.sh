@@ -36,7 +36,8 @@ cd ..
 #download and build libattr
 wget https://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz
 wget https://download.savannah.gnu.org/releases/attr/attr-2.4.47.src.tar.gz.sig
-gpg2 attr-2.4.47.src.tar.gz.sig
+gpg2 --recv-keys 154343260542DF34
+gpg2 --verify attr-2.4.47.src.tar.gz.sig
 tar -xf attr-2.4.47.src.tar.gz
 cd attr-2.4.47
 #fixing paths to sh

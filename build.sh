@@ -31,27 +31,6 @@ else
 	echo "no need to patch borg"
 fi
 
-#download and build libacl
-wget -N https://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz -O acl-2.2.52.src.tar.gz
-wget -N https://download.savannah.gnu.org/releases/acl/acl-2.2.52.src.tar.gz.sig -O acl-2.2.52.src.tar.gz.sig
-gpg2 --recv-key 0542DF34
-gpg2 --verify acl-2.2.52.src.tar.gz.sig
-tar -xf acl-2.2.52.src.tar.gz
-cd acl-2.2.52
-#fixing paths to sh
-sed -i "s/\/bin\/sh/\/data\/data\/com.termux\/files\/usr\/bin\/sh/" configure
-sed -i "s/\/bin\/sh/\/data\/data\/com.termux\/files\/usr\/bin\/sh/" install-sh
-sed -i "s/\/bin\/sh/\/data\/data\/com.termux\/files\/usr\/bin\/sh/" include/install-sh
-
-#fix for non-existent /tmp directory in set_cc_for_build of config.guess for 32-bit arm
-sed -i "s/TMPDIR=\/tmp/TMPDIR=tmp/g" config.guess
-mkdir tmp
-
-./configure --prefix=/data/data/com.termux/files/usr/local/ CC=clang
-make
-make install install-lib install-dev
-cd ..
-
 #patching paths
 export BORG_OPENSSL_PREFIX="/data/data/com.termux/files/usr/"
 export BORG_LZ4_PREFIX="/data/data/com.termux/files/usr/"
